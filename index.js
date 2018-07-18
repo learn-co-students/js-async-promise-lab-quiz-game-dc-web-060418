@@ -21,13 +21,10 @@ function displayQuestionOnClick(question){
   askQuestionThenRemoveQuestion(question, 5000)
 }
 
-function askQuestionThenRemoveQuestion(question, time){
-  return askQuestionThen(question, time)
-  .then((correctGuess) => {
-    removeQuestion(correctGuess)
-  })
-}
-
+//Returns a Promise obj that resolves with either a true or false value.
+//The promise resolves with true if the user clicked the correct answer.
+//The promise resolves with false if the user clicked the wrong answer
+//or if 5 seconds have passed
 function askQuestionThen(question, time){
   appendQuestion(question)
   return new Promise((resolve, reject) => {
@@ -41,6 +38,14 @@ function askQuestionThen(question, time){
     setTimeout(function(){
       resolve(false)
     }, time)
+  })
+}
+
+//Invokes the askQuestionThen function and passes the promiseValue to the removeQuestion function
+function askQuestionThenRemoveQuestion(question, time){
+   askQuestionThen(question, time)
+  .then((correctGuess) => {
+    removeQuestion(correctGuess)
   })
 }
 
