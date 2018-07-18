@@ -74,9 +74,3 @@ function incrementScore(){
   score++
   document.querySelector("#score").innerHTML = score
 }
-
-function init(){
-  document.querySelector("#true").classList.add('hide')
-  document.querySelector("#false").classList.add('hide')
-  document.querySelector("#ask").classList.remove('hide')
-}
