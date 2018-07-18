@@ -1,42 +1,45 @@
 const questions = [
-  {questionText: "Lightning never strikes in the same place twice", answer: false},
-  {questionText: "Humans can distinguish between over one trillion different smells", answer: true},
-  {questionText: "Goldfish only have a memory of about three seconds", answer: false}
+  {questionText: "Lightning never strikes in the same place twice", answer: "false"},
+  {questionText: "Humans can distinguish between over one trillion different smells", answer: "true"},
+  {questionText: "Goldfish only have a memory of about three seconds", answer: "false"}
 ]
 
-let question;
-function askQuestion(){
-  return questions[0]
+document.addEventListener("DOMContentLoaded", function(){
+  let question = questions[0]
+  document.querySelector("#ask").addEventListener("click", function(){
+    displayQuestionOnClick(question)
+    question = nextQuestion(question)
+  })
+});
+
+function nextQuestion(question){
+  currIndex = questions.indexOf(question)
+  return questions[(currIndex + 1) % questions.length]
 }
 
-function displayQuestionOnClick(){
-  let btn = document.querySelector('a')
-  return btn.addEventListener('click', () => {
-    toggleTrueAndFalseButtons()
-    askQuestionThenRemoveQuestion(5000)
+function displayQuestionOnClick(question){
+  askQuestionThenRemoveQuestion(question, 5000)
+}
+
+function askQuestionThenRemoveQuestion(question, time){
+  return askQuestionThen(question, time)
+  .then((correctGuess) => {
+    removeQuestion(correctGuess)
   })
 }
 
-function trueAndFalseButtons(){
-  return btns = document.querySelector('.true-false-list').querySelectorAll('.btn')
-}
-
-function toggleTrueAndFalseButtons(){
-  trueAndFalseButtons().forEach(function(btn){
-    btn.classList.toggle("hide")
-  })
-}
-
-function checkQuestion(question, answer){
-  question.questionAnswer == answer
-}
-
-function askQuestionThen(time){
-  question = questions[0]
+function askQuestionThen(question, time){
   appendQuestion(question)
-  return new Promise(function(resolve){
+  return new Promise((resolve, reject) => {
+    document.querySelector(".answer-buttons").addEventListener("click", function(event){
+      if(checkQuestion(question, event.target.id)){
+        resolve(true)
+      }else{
+        resolve(false)
+      }
+    })
     setTimeout(function(){
-      resolve(question)
+      resolve(false)
     }, time)
   })
 }
@@ -44,16 +47,36 @@ function askQuestionThen(time){
 function appendQuestion(question){
   let container = document.querySelector('.question-container')
   container.innerHTML = question.questionText;
+  toggleButtons()
 }
 
-function removeQuestion(){
-  return new Promise(function(){
-    let container = document.querySelector('.question-container')
-    container.innerHTML = ''
-    toggleTrueAndFalseButtons()
-  })
+function checkQuestion(question, answer){
+  return question.answer === answer
 }
 
-function askQuestionThenRemoveQuestion(time){
-  return askQuestionThen(time).then(removeQuestion)
+function removeQuestion(correctGuess){
+  if(correctGuess){
+    incrementScore()
+  }
+  let container = document.querySelector('.question-container')
+  container.innerHTML = ''
+  toggleButtons()
+}
+
+function toggleButtons(){
+  document.querySelector("#true").classList.toggle('hide')
+  document.querySelector("#false").classList.toggle('hide')
+  document.querySelector("#ask").classList.toggle('hide')
+}
+
+function incrementScore(){
+  let score = document.querySelector("#score").innerHTML
+  score++
+  document.querySelector("#score").innerHTML = score
+}
+
+function init(){
+  document.querySelector("#true").classList.add('hide')
+  document.querySelector("#false").classList.add('hide')
+  document.querySelector("#ask").classList.remove('hide')
 }
