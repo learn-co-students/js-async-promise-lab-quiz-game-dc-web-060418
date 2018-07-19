@@ -4,32 +4,33 @@ const questions = [
   {questionText: "Goldfish only have a memory of about three seconds", answer: "false"}
 ]
 
+let question = questions[0]
+
 document.addEventListener("DOMContentLoaded", function(){
-  let question = questions[0]
   document.querySelector("#ask").addEventListener("click", function(){
-    displayQuestionOnClick(question)
-    question = nextQuestion(question)
+    question = nextQuestion()
+    displayQuestionOnClick()
   })
 });
 
-function nextQuestion(question){
+function nextQuestion(){
   currIndex = questions.indexOf(question)
   return questions[(currIndex + 1) % questions.length]
 }
 
-function displayQuestionOnClick(question){
-  askQuestionThenRemoveQuestion(question, 5000)
+function displayQuestionOnClick(){
+  askQuestionThenRemoveQuestion(5000)
 }
 
 //Returns a Promise obj that resolves with either a true or false value.
 //The promise resolves with true if the user clicked the correct answer.
 //The promise resolves with false if the user clicked the wrong answer
 //or if 5 seconds have passed
-function askQuestionThen(question, time){
+function askQuestionThen(time){
   appendQuestion(question)
   return new Promise((resolve, reject) => {
     document.querySelector(".answer-buttons").addEventListener("click", function(event){
-      if(checkQuestion(question, event.target.id)){
+      if(checkQuestion(event.target.id)){
         resolve(true)
       }else{
         resolve(false)
@@ -42,27 +43,27 @@ function askQuestionThen(question, time){
 }
 
 //Invokes the askQuestionThen function and passes the promiseValue to the removeQuestion function
-function askQuestionThenRemoveQuestion(question, time){
-   askQuestionThen(question, time)
+function askQuestionThenRemoveQuestion(time){
+   askQuestionThen(time)
   .then((correctGuess) => {
-    removeQuestion(correctGuess)
+    if(correctGuess){
+      incrementScore()
+    }
+    removeQuestion();
   })
 }
 
-function appendQuestion(question){
+function appendQuestion(){
   let container = document.querySelector('.question-container')
   container.innerHTML = question.questionText;
   toggleButtons()
 }
 
-function checkQuestion(question, answer){
+function checkQuestion(answer){
   return question.answer === answer
 }
 
-function removeQuestion(correctGuess){
-  if(correctGuess){
-    incrementScore()
-  }
+function removeQuestion(){
   let container = document.querySelector('.question-container')
   container.innerHTML = ''
   toggleButtons()

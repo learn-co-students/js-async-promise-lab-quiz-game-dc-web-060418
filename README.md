@@ -8,7 +8,7 @@ JS Async Promises Lab
 
 ## Introduction
 
-In this lab we'll practice using promises, as well as our other JavaScript skills, to make a game that some of our passengers can play during their ride.  It's a quiz game with a series of true or false question that our passengers must answer.  The user clicks on the "Ask Away!" button and that displays the first question as well as the True and False buttons.  After five seconds, time is up and the question, and True and False buttons, disappear.   
+In this lab we'll practice using promises, as well as our other JavaScript skills, to make a game that some of our passengers can play during their ride.  It's a quiz game with a series of true or false question that our passengers must answer.  The user clicks on the "Ask Away!" button and that displays the next question as well as the True and False buttons. If they guess correctly, their score increments. If within five seconds the user does not answer the question, time is up and the question, and True and False buttons, disappear while the "Ask Away button appears again".   
 
 ## Your task
 
@@ -16,13 +16,13 @@ We have already done some of the work for you.  We have uploaded the "materializ
 
 There are number of functions that we need to build to get this functionality to work.  
 
-+ `appendQuestion` - appends the question to the "question-container" in the `index.html` file
-+ `askQuestionThen(time)` - this assigns a global variable `question` to equal the first question; it also returns a promise that is resolved after a specified amount of time (so that we can expire the question after 5 seconds); the amount of time to wait is provided as an argument to the function
-+ `removeQuestion` - removes the question from the "question-container"; it returns a promise so that the function is "thennable", meaning we can do something after the question
-+ `askQuestionThenRemoveQuestion(time)` - it appends the question to the "question-container" and after a specified amount of time removes the question; it takes an argument of "time" indicating the amount of time the question will be displayed
-+ `trueAndFalseButtons` - it returns the collection of true and false buttons already provided in the `index.html` file
-+ `toggleTrueAndFalseButtons` - it adds the hide class if not on the buttons, and removes the hide class if it is on the buttons
-+ `displayQuestionOnClick`  - it adds both the true and false buttons and the question for five seconds, and then hides both of the true and false questions and removes the text of the question
++ `nextQuestion` - Updates the global `question` variable to the next question in the list or loops back around to the start from the end of the list.
++ `appendQuestion` - Appends the question to the "question-container" in the `index.html` file
++ `askQuestionThen(time)` - Returns a promise that is resolved after (1) the user selects an answer or (2) after a specified amount of time (so that we can expire the question after 5 seconds). The amount of time to wait is provided as an argument to the function. The resolve value should reflect whether the user successfully answered the question correctly.
++ `removeQuestion()` - Removes the question from the "question-container". It also hides the true and false buttons and shows the ask away button again.
++ `askQuestionThenRemoveQuestion(time)` - It appends the question to the "question-container" and after (1) the user selects an answer or (2) after a specified amount of time, removes the question. It takes an argument of "time" indicating the amount of time the question will be displayed. 
++ `toggleButtons` - It toggles the hide class if not on the buttons, and removes the hide class if it is on the buttons. This should affect the true, false, and ask away buttons.
++ `displayQuestionOnClick`  - It hides the ask away button while displaying the true and false buttons and the question for five seconds, and then hides both of the true and false questions, removes the text of the question, and shows the ask away button
 
 ## Resources
 
