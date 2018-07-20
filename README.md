@@ -16,12 +16,12 @@ We have already done some of the work for you.  We have uploaded the "materializ
 
 There are number of functions that we need to build to get this functionality to work.  
 
-+ `nextQuestion` - Updates the global `question` variable to the next question in the list or loops back around to the start from the end of the list.
-+ `appendQuestion` - Appends the question to the "question-container" in the `index.html` file
-+ `askQuestionThen(time)` - Returns a promise that is resolved after (1) the user selects an answer or (2) after a specified amount of time (so that we can expire the question after 5 seconds). The amount of time to wait is provided as an argument to the function. The resolve value should reflect whether the user successfully answered the question correctly.
-+ `removeQuestion()` - Removes the question from the "question-container". It also hides the true and false buttons and shows the ask away button again.
-+ `askQuestionThenRemoveQuestion(time)` - It appends the question to the "question-container" and after (1) the user selects an answer or (2) after a specified amount of time, removes the question. It takes an argument of "time" indicating the amount of time the question will be displayed. 
-+ `toggleButtons` - It toggles the hide class if not on the buttons, and removes the hide class if it is on the buttons. This should affect the true, false, and ask away buttons.
+√+ `nextQuestion` - Updates the global `question` variable to the next question in the list or loops back around to the start from the end of the list.
+√+ `appendQuestion` - Appends the question to the "question-container" in the `index.html` file
+√+ `askQuestionThen(time)` - Returns a promise that is resolved after (1) the user selects an answer or (2) after a specified amount of time (so that we can expire the question after 5 seconds). The amount of time to wait is provided as an argument to the function. The resolve value should reflect whether the user successfully answered the question correctly.
+√+ `removeQuestion()` - Removes the question from the "question-container". It also hides the true and false buttons and shows the ask away button again.
+√+ `askQuestionThenRemoveQuestion(time)` - It appends the question to the "question-container" and after (1) the user selects an answer or (2) after a specified amount of time, removes the question. It takes an argument of "time" indicating the amount of time the question will be displayed.
+√+ `toggleButtons` - It toggles the hide class if not on the buttons, and removes the hide class if it is on the buttons. This should affect the true, false, and ask away buttons.
 + `displayQuestionOnClick`  - It hides the ask away button while displaying the true and false buttons and the question for five seconds, and then hides both of the true and false questions, removes the text of the question, and shows the ask away button
 
 ## Resources
